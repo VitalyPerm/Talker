@@ -18,15 +18,15 @@ import java.util.concurrent.TimeUnit
 
 class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) {
 
-    private lateinit var mPhoneNumber: String
-    private lateinit var mCallBack: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private lateinit var mPhoneNumber:String
+    private lateinit var mCallback:PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     override fun onStart() {
         super.onStart()
-        mCallBack = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
+                    if (task.isSuccessful){
                         showToast("Добро пожаловать")
                         (activity as RegisterActivity).replaceActivity(MainActivity())
                     } else showToast(task.exception?.message.toString())
@@ -38,14 +38,14 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             }
 
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
-                replaceFragment(EnterCodeFragment(mPhoneNumber, id))
+                replaceFragment(EnterCodeFragment(mPhoneNumber,id))
             }
         }
         register_btn_next.setOnClickListener { sendCode() }
     }
 
     private fun sendCode() {
-        if (register_input_phone_number.text.toString().isEmpty()) {
+        if (register_input_phone_number.text.toString().isEmpty()){
             showToast(getString(R.string.register_toast_enter_phone))
         } else {
             authUser()
@@ -59,9 +59,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             60,
             TimeUnit.SECONDS,
             activity as RegisterActivity,
-            mCallBack
-
+            mCallback
         )
     }
-
 }
