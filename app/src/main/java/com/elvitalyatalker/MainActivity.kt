@@ -9,6 +9,7 @@ import com.elvitalyatalker.databinding.ActivityMainBinding
 import com.elvitalyatalker.ui.fragments.ChatsFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
 import com.elvitalyatalker.utilits.AUTH
+import com.elvitalyatalker.utilits.initFirebase
 import com.elvitalyatalker.utilits.replaceActivity
 import com.elvitalyatalker.utilits.replaceFragment
 import com.google.firebase.auth.FirebaseAuth
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
-        AUTH = FirebaseAuth.getInstance()
+        initFirebase()
 
     }
 

@@ -6,15 +6,18 @@ import androidx.appcompat.widget.Toolbar
 import com.elvitalyatalker.R
 import com.elvitalyatalker.databinding.ActivityRegisterBinding
 import com.elvitalyatalker.ui.fragments.EnterPhoneNumberFragment
+import com.elvitalyatalker.utilits.initFirebase
 import com.elvitalyatalker.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegisterBinding
     private lateinit var mToolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initFirebase()
     }
 
     override fun onStart() {
