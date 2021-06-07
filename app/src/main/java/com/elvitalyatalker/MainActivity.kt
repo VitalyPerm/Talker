@@ -8,14 +8,17 @@ import com.elvitalyatalker.activities.RegisterActivity
 import com.elvitalyatalker.databinding.ActivityMainBinding
 import com.elvitalyatalker.ui.fragments.ChatsFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
+import com.elvitalyatalker.utilits.AUTH
 import com.elvitalyatalker.utilits.replaceActivity
 import com.elvitalyatalker.utilits.replaceFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: Toolbar
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,10 +34,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (true) {
+        if (AUTH.currentUser != null) {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment())
+            replaceFragment(ChatsFragment(),false)
         } else {
             replaceActivity(RegisterActivity())
         }
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
+        AUTH = FirebaseAuth.getInstance()
 
     }
 
