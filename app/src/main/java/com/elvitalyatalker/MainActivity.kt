@@ -8,6 +8,8 @@ import com.elvitalyatalker.activities.RegisterActivity
 import com.elvitalyatalker.databinding.ActivityMainBinding
 import com.elvitalyatalker.ui.fragments.ChatsFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
+import com.elvitalyatalker.utilits.replaceActivity
+import com.elvitalyatalker.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,16 +31,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (false) {
+        if (true) {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.dataContainer, ChatsFragment()).commit()
+            replaceFragment(ChatsFragment())
         } else {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            replaceActivity(RegisterActivity())
         }
-
     }
 
 

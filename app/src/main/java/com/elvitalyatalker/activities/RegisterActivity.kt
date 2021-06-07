@@ -1,11 +1,12 @@
 package com.elvitalyatalker.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.elvitalyatalker.R
 import com.elvitalyatalker.databinding.ActivityRegisterBinding
 import com.elvitalyatalker.ui.fragments.EnterPhoneNumberFragment
+import com.elvitalyatalker.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegisterBinding
@@ -21,9 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         mToolbar = mBinding.registerToolbar
         setSupportActionBar(mToolbar)
         title = getString(R.string.register_title_your_phone)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.registerDataContainer,EnterPhoneNumberFragment())
-            .commit()
+        replaceFragment(EnterPhoneNumberFragment())
     }
 
 }
