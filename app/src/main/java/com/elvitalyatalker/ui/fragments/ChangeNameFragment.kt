@@ -13,9 +13,11 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
-        val fullnameList:List<String> = USER.fullname.split(" ")
-        settings_input_name.setText(fullnameList[0])
-        settings_input_surname.setText(fullnameList[1])
+        val fullnameList: List<String> = USER.fullname.split(" ")
+        if (fullnameList.size > 1) {
+            settings_input_name.setText(fullnameList[0])
+            settings_input_surname.setText(fullnameList[1])
+        } else settings_input_name.setText(fullnameList[0])
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
