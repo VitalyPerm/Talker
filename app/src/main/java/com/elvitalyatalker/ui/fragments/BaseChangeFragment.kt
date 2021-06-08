@@ -5,9 +5,10 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.R
+import com.elvitalyatalker.utilits.APP_ACTIVITY
 
 
-open class BaseChangeFragment (layout: Int): Fragment(layout) {
+ open class BaseChangeFragment (layout: Int): Fragment(layout) {
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
@@ -16,6 +17,7 @@ open class BaseChangeFragment (layout: Int): Fragment(layout) {
 
     override fun onStop() {
         super.onStop()
+        APP_ACTIVITY.hideKeyboard()
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
