@@ -35,7 +35,7 @@ class AppDrawer (val mainAcitivty:AppCompatActivity, val toolbar: androidx.appco
     }
 
     fun enableDrawer(){
-        mainAcitivty.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mainAcitivty.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         toolbar.setNavigationOnClickListener {

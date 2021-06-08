@@ -1,9 +1,5 @@
 package com.elvitalyatalker.ui.fragments
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.elvitalyatalker.MainActivity
 
@@ -14,6 +10,7 @@ open class BaseFragment(layout: Int) : Fragment(layout) {
         super.onStart()
         (activity as MainActivity).mAppDrawer.disableDrawer()
     }
+
 
     override fun onStop() {
         super.onStop()
