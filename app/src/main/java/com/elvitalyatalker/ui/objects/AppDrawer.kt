@@ -2,6 +2,7 @@ package com.elvitalyatalker.ui.objects
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.elvitalyatalker.R
 import com.elvitalyatalker.ui.fragments.SettingsFragment
 import com.elvitalyatalker.utilits.replaceFragment
@@ -17,10 +18,29 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 class AppDrawer (val mainAcitivty:AppCompatActivity, val toolbar: androidx.appcompat.widget.Toolbar){
     private lateinit var mDrawer: Drawer
     private lateinit var mHeader: AccountHeader
+    private lateinit var mDrawerLayout:DrawerLayout
 
     fun create(){
         createHeader()
         createDrawer()
+        mDrawerLayout = mDrawer.drawerLayout
+    }
+    fun disableDrawer(){
+    mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
+        mainAcitivty.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toolbar.setNavigationOnClickListener {
+            mainAcitivty.supportFragmentManager.popBackStack()
+        }
+    }
+
+    fun enableDrawer(){
+        mainAcitivty.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        toolbar.setNavigationOnClickListener {
+            mDrawer.openDrawer()
+        }
     }
 
     private fun createDrawer() {
