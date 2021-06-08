@@ -9,10 +9,13 @@ import com.elvitalyatalker.R
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
-class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
+        initFullNameList()
+    }
+
+    private fun initFullNameList() {
         val fullnameList: List<String> = USER.fullname.split(" ")
         if (fullnameList.size > 1) {
             settings_input_name.setText(fullnameList[0])
@@ -20,18 +23,7 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         } else settings_input_name.setText(fullnameList[0])
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> changeName()
-        }
-        return true
-    }
-
-    private fun changeName() {
+    override fun change() {
         val name = settings_input_name.text.toString()
         val surname = settings_input_surname.text.toString()
         if (name.isEmpty()) {
