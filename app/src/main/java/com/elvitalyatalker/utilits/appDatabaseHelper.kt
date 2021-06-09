@@ -26,6 +26,9 @@ const val CHILD_FULLNAME = "fullname"
 const val CHILD_BIO = "bio"
 const val CHILD_PHOTO_URL = "photoUrl"
 const val CHILD_STATE = "state"
+const val NODE_PHONES = "phones"
+const val NODE_PHONES_CONTACTS = "phones_contacts"
+
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -87,5 +90,21 @@ fun initContacts() {
             }
         }
         cursor?.close()
+        updatePhonesToDataBase(arrayContacts)
     }
+}
+
+fun updatePhonesToDataBase(arrayContacts: ArrayList<CommonModel>) {
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{
+        it.children.forEach { snapshot ->
+            arrayContacts.forEach { contact ->
+                if(snapshot.key == contact.phone){
+                    REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+                        .child(snapshot.value.toString()).child(CHILD_ID)
+                        .setValue(snapshot.value.toString())
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                }
+            }
+        }
+    })
 }
