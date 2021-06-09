@@ -39,12 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initContacts() {
-        if (checkPermission(READ_CONTACTS)) {
-            var array = arrayOfNulls<Int>(500000)
-            array.forEach { println(it) }
-        }
-    }
+
 
 
     private fun initFunc() {
