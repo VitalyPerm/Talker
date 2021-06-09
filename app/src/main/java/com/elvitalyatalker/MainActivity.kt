@@ -15,6 +15,9 @@ import com.elvitalyatalker.ui.fragments.ChatsFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
 import com.elvitalyatalker.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,16 +32,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
         APP_ACTIVITY = this
         initFirebase()
-        initUser{
-            initContacts()
+        initUser {
+            CoroutineScope(Dispatchers.IO).launch { initContacts() }
             initFields()
             initFunc()
         }
     }
 
     private fun initContacts() {
-        if(checkPermission(READ_CONTACTS)){
-            showToast("Чтение контактов")
+        if (checkPermission(READ_CONTACTS)) {
+            var array = arrayOfNulls<Int>(500000)
+            array.forEach { println(it) }
         }
     }
 
@@ -75,7 +79,11 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(
+                APP_ACTIVITY,
+                READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             initContacts()
         }
     }
