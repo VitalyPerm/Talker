@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.elvitalyatalker.R
 import com.elvitalyatalker.ui.fragments.ContactsFragment
@@ -123,8 +122,8 @@ class AppDrawer {
 
     private fun clickToItem(position: Int) {
         when (position) {
-            7 -> APP_ACTIVITY.replaceFragment(SettingsFragment())
-            4 -> APP_ACTIVITY.replaceFragment(ContactsFragment())
+            7 -> replaceFragment(SettingsFragment())
+            4 -> replaceFragment(ContactsFragment())
         }
     }
 

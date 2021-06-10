@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elvitalyatalker.R
 import com.elvitalyatalker.models.CommonModel
+import com.elvitalyatalker.ui.fragments.single_chat.SingleChatFragment
 import com.elvitalyatalker.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
