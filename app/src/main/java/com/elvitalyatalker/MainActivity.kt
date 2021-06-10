@@ -1,20 +1,15 @@
 package com.elvitalyatalker
 
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.elvitalyatalker.activities.RegisterActivity
 import com.elvitalyatalker.databinding.ActivityMainBinding
-import com.elvitalyatalker.models.User
 import com.elvitalyatalker.ui.fragments.ChatsFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
 import com.elvitalyatalker.utilits.*
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
