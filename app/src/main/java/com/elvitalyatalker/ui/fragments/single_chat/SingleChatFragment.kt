@@ -2,8 +2,10 @@ package com.elvitalyatalker.ui.fragments.single_chat
 
 import android.app.Activity
 import android.content.Intent
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,9 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.message_item.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class SingleChatFragment(private val contact: CommonModel) :
@@ -51,17 +56,36 @@ class SingleChatFragment(private val contact: CommonModel) :
         mSwipeRefreshLayout = chat_swipe_refresh
         mLayoutManager = LinearLayoutManager(this.context)
         chat_input_message.addTextChangedListener(AppTextWatcher {
-            val string = chat_user_message.text.toString()
-            if (string.isNotEmpty()) {
-                chat_btn_send_message.visibility = View.VISIBLE
+            val string = chat_input_message.text.toString()
+            if (string.isEmpty() || string == "Запись") {
+                chat_btn_send_message.visibility = View.GONE
                 chat_btn_attach.visibility = View.VISIBLE
+                chat_btn_voice.visibility = View.VISIBLE
             } else {
                 chat_btn_send_message.visibility = View.VISIBLE
-                chat_btn_attach.visibility = View.VISIBLE
+                chat_btn_attach.visibility = View.GONE
+                chat_btn_voice.visibility = View.GONE
             }
         })
         chat_btn_attach.setOnClickListener { attachFile() }
+        CoroutineScope(Dispatchers.IO).launch {
+            chat_btn_voice.setOnTouchListener { v, event ->
+                if (checkPermission(RECORD_AUDIO)){
+                    if (event.action == MotionEvent.ACTION_DOWN){
+                        //TODO record
+                        chat_input_message.setText("Запись")
+                        chat_btn_voice.setColorFilter(ContextCompat.getColor(APP_ACTIVITY,R.color.primary))
+                    } else if (event.action == MotionEvent.ACTION_UP){
+                        //TODO stop record
+                        chat_input_message.setText("")
+                        chat_btn_voice.colorFilter = null
+                    }
+                }
+                true
+            }
+        }
     }
+
 
     private fun attachFile() {
         CropImage.activity()
@@ -73,7 +97,8 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initRecycleView() {
         mRecyclerView = chat_recycle_view
         mAdapter = SingleChatAdapter()
-        mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
+        mRefMessages =
+            REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
         mRecyclerView.adapter = mAdapter
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isNestedScrollingEnabled = false
@@ -162,7 +187,8 @@ class SingleChatFragment(private val contact: CommonModel) :
                 REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
                     .push().key.toString()
             val path =
-                REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(CURRENT_UID).child(messageKey)
+                REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(CURRENT_UID)
+                    .child(messageKey)
             putImageToStorage(uri, path) {
                 getUrlFromStorage(path) {
                     sendMessageAsImage(contact.id, it, messageKey)
