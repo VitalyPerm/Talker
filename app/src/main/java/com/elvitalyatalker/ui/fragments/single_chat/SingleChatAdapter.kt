@@ -1,20 +1,16 @@
 package com.elvitalyatalker.ui.fragments.single_chat
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.elvitalyatalker.R
 import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.message_item.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
     private var mListMessagesCache = mutableListOf<CommonModel>()
@@ -76,14 +72,14 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
             holder.blockReceivedMessage.visibility = View.GONE
             holder.blockReceivedImageMessage.visibility = View.GONE
             holder.blockUserImageMessage.visibility = View.VISIBLE
-            holder.chatUserImage.downloadAndSetImage(mListMessagesCache[position].imageUrl)
+            holder.chatUserImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
             holder.chatUserImageMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
         } else {
             holder.blockUserMessage.visibility = View.GONE
             holder.blockReceivedMessage.visibility = View.GONE
             holder.blockReceivedImageMessage.visibility = View.VISIBLE
             holder.blockUserImageMessage.visibility = View.GONE
-            holder.chatReceivedImage.downloadAndSetImage(mListMessagesCache[position].imageUrl)
+            holder.chatReceivedImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
             holder.chatReceivedImageMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
         }
     }
