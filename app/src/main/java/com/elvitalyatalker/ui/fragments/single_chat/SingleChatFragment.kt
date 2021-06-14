@@ -1,19 +1,25 @@
 package com.elvitalyatalker.ui.fragments.single_chat
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.AbsListView
+import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.elvitalyatalker.R
 import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.models.UserModel
 import com.elvitalyatalker.ui.fragments.BaseFragment
 import com.elvitalyatalker.utilits.*
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
+import kotlinx.android.synthetic.main.message_item.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 
 
@@ -27,15 +33,41 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMessagesListener: AppChildEventListener
-    private var mCountMessages = 10
+    private var mCountMessages = 15
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
-    private val mListListeners = mutableListOf<AppChildEventListener>()
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mLayoutManager: LinearLayoutManager
 
     override fun onResume() {
         super.onResume()
+        initFields()
         initToolBar()
         initRecycleView()
+
+    }
+
+    private fun initFields() {
+        mSwipeRefreshLayout = chat_swipe_refresh
+        mLayoutManager = LinearLayoutManager(this.context)
+        chat_input_message.addTextChangedListener(AppTextWatcher {
+            val string = chat_user_message.text.toString()
+            if (string.isEmpty()) {
+                chat_btn_send_message.visibility = View.GONE
+                chat_btn_attach.visibility = View.VISIBLE
+            } else {
+                chat_btn_send_message.visibility = View.VISIBLE
+                chat_btn_attach.visibility = View.GONE
+            }
+        })
+        chat_btn_attach.setOnClickListener { attachFile() }
+    }
+
+    private fun attachFile() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(250, 250)
+            .start(APP_ACTIVITY, this)
     }
 
     private fun initRecycleView() {
@@ -43,22 +75,30 @@ class SingleChatFragment(private val contact: CommonModel) :
         mAdapter = SingleChatAdapter()
         mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
         mRecyclerView.adapter = mAdapter
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.isNestedScrollingEnabled = false
+        mRecyclerView.layoutManager = mLayoutManager
         mMessagesListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel())
+            val message = it.getCommonModel()
             if (mSmoothScrollToPosition) {
-                mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                mAdapter.addItemToBottom(message) {
+                    mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                }
+            } else {
+                mAdapter.addItemToTop(message) {
+                    mSwipeRefreshLayout.isRefreshing = false
+                }
             }
         }
 
-
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
-        mListListeners.add(mMessagesListener)
 
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (mIsScrolling && dy < 0) {
+
+                if (mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition() <= 3) {
                     updateData()
                 }
             }
@@ -70,15 +110,16 @@ class SingleChatFragment(private val contact: CommonModel) :
             }
         })
 
+        mSwipeRefreshLayout.setOnRefreshListener { updateData() }
+
     }
 
     private fun updateData() {
         mSmoothScrollToPosition = false
         mIsScrolling = false
         mCountMessages += 10
+        mRefMessages.removeEventListener(mMessagesListener)
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
-        mListListeners.add(mMessagesListener)
-
     }
 
     private fun initToolBar() {
@@ -111,13 +152,30 @@ class SingleChatFragment(private val contact: CommonModel) :
         mToolBarInfo.toolbar_contact_chat_status.text = mRecievingUser.state
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
+            && resultCode == Activity.RESULT_OK && data != null
+        ) {
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey =
+                REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
+                    .push().key.toString()
+            val path =
+                REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(CURRENT_UID).child(messageKey)
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) {
+                    sendMessageAsImage(contact.id, it, messageKey)
+                }
+            }
+        }
+    }
+
+
     override fun onPause() {
         super.onPause()
         APP_ACTIVITY.mToolbar.toolbar_info.visibility = View.GONE
         mRefUser.removeEventListener(mListenerInfoToolBar)
-        mListListeners.forEach{
-            mRefMessages.removeEventListener(it)
-        }
-    println()
+        mRefMessages.removeEventListener(mMessagesListener)
     }
 }

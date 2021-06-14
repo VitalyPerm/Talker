@@ -25,7 +25,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
             showToast(getString(R.string.settings_toast_name_is_empty))
         } else {
             val fullname = "$name $surname"
-            setNametoDataBase(fullname)
+            setNameToDataBase(fullname)
 
         }
 

@@ -19,7 +19,7 @@ lateinit var USER: UserModel
 lateinit var CURRENT_UID: String
 
 const val TYPE_TEXT = "text"
-
+const val FOLDER_MESSAGE_IMAGE = "message_image"
 const val NODE_USERS = "users"
 const val NODE_MESSAGES = "messages"
 const val NODE_USERNAMES = "usernames"
@@ -37,6 +37,7 @@ const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timeStamp"
+const val CHILD_IMAGE_URL = "imageUrl"
 
 
 fun initFirebase() {
@@ -116,6 +117,7 @@ fun sendMessage(message: String, receivingUserId: String, typeText: String, func
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = typeText
     mapMessage[CHILD_TEXT] = message
+    mapMessage[CHILD_ID] = messageKey.toString()
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
     val mapDiaglog = hashMapOf<String, Any>()
@@ -158,7 +160,7 @@ fun setBioToDataBase(newBio: String) {
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun setNametoDataBase(fullname: String) {
+fun setNameToDataBase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
         .setValue(fullname)
         .addOnSuccessListener {
@@ -168,4 +170,24 @@ fun setNametoDataBase(fullname: String) {
             hideKeyboard()
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun sendMessageAsImage(receivingUserId: String, imageUrl: String, messageKey: String) {
+    val refDialogUser = "$NODE_MESSAGES/$CURRENT_UID/$receivingUserId"
+    val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$CURRENT_UID"
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_FROM] = CURRENT_UID
+    mapMessage[CHILD_TYPE] = TYPE_MESSAGE_IMAGE
+    mapMessage[CHILD_ID] = messageKey
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[CHILD_IMAGE_URL] = imageUrl
+
+
+    val mapDiaglog = hashMapOf<String, Any>()
+    mapDiaglog["$refDialogUser/$messageKey"] = mapMessage
+    mapDiaglog["$refDialogReceivingUser/$messageKey"] = mapMessage
+
+    REF_DATABASE_ROOT.updateChildren(mapDiaglog)
+        .addOnFailureListener { showToast(it.message.toString()) }
 }
