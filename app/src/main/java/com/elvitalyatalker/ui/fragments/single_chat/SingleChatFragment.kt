@@ -52,12 +52,12 @@ class SingleChatFragment(private val contact: CommonModel) :
         mLayoutManager = LinearLayoutManager(this.context)
         chat_input_message.addTextChangedListener(AppTextWatcher {
             val string = chat_user_message.text.toString()
-            if (string.isEmpty()) {
-                chat_btn_send_message.visibility = View.GONE
+            if (string.isNotEmpty()) {
+                chat_btn_send_message.visibility = View.VISIBLE
                 chat_btn_attach.visibility = View.VISIBLE
             } else {
                 chat_btn_send_message.visibility = View.VISIBLE
-                chat_btn_attach.visibility = View.GONE
+                chat_btn_attach.visibility = View.VISIBLE
             }
         })
         chat_btn_attach.setOnClickListener { attachFile() }
@@ -166,6 +166,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             putImageToStorage(uri, path) {
                 getUrlFromStorage(path) {
                     sendMessageAsImage(contact.id, it, messageKey)
+                    mSmoothScrollToPosition = true
                 }
             }
         }

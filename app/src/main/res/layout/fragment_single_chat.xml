@@ -36,7 +36,7 @@
         android:textColor="@color/black"
         android:textColorHint="@color/colorGrey"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/chat_btn_send_message"
+        app:layout_constraintEnd_toStartOf="@id/chat_btn_attach"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -45,7 +45,6 @@
         android:layout_height="0dp"
         android:padding="@dimen/app_padding"
         android:src="@drawable/ic_send"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chat_input_message" />
