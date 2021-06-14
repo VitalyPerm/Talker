@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.CURRENT_UID
 import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.message_item.view.*

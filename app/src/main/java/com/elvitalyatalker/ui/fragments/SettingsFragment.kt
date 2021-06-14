@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -65,7 +66,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         ) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE).child(CURRENT_UID)
-            putImageToStorage(uri, path) {
+            putFileToStorage(uri, path) {
                 getUrlFromStorage(path) {
                     putUrlToDataBase(it) {
                         settings_user_photo.downloadAndSetImage(it)

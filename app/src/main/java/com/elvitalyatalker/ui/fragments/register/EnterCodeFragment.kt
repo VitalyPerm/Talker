@@ -1,8 +1,8 @@
 package com.elvitalyatalker.ui.fragments.register
 
 import androidx.fragment.app.Fragment
-import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_code.*

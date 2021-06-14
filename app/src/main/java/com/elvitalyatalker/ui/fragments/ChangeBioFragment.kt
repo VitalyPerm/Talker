@@ -1,6 +1,8 @@
 package com.elvitalyatalker.ui.fragments
 
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.USER
+import com.elvitalyatalker.dataBase.setBioToDataBase
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_bio.*
 

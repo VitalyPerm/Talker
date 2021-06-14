@@ -1,8 +1,8 @@
 package com.elvitalyatalker.ui.fragments.register
 
 import androidx.fragment.app.Fragment
-import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.AUTH
 import com.elvitalyatalker.utilits.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential

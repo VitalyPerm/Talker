@@ -9,7 +9,7 @@ import com.elvitalyatalker.R
 import com.elvitalyatalker.ui.fragments.ContactsFragment
 import com.elvitalyatalker.ui.fragments.SettingsFragment
 import com.elvitalyatalker.utilits.APP_ACTIVITY
-import com.elvitalyatalker.utilits.USER
+import com.elvitalyatalker.dataBase.USER
 import com.elvitalyatalker.utilits.downloadAndSetImage
 import com.elvitalyatalker.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader

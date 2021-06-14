@@ -5,6 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.elvitalyatalker.dataBase.AUTH
+import com.elvitalyatalker.dataBase.initFirebase
+import com.elvitalyatalker.dataBase.initUser
 import com.elvitalyatalker.databinding.ActivityMainBinding
 import com.elvitalyatalker.ui.fragments.MainFragment
 import com.elvitalyatalker.ui.fragments.register.EnterPhoneNumberFragment

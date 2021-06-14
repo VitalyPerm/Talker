@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.updatePhonesToDataBase
 import com.elvitalyatalker.models.CommonModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_settings.*

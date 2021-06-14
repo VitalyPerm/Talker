@@ -81,6 +81,7 @@
         android:layout_width="@dimen/chat_image_width"
         android:layout_height="@dimen/chat_image_height"
         android:layout_margin="@dimen/app_margin"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -102,7 +103,6 @@
             android:id="@+id/chat_received_image"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:src="@drawable/default_photo"
             app:layout_constraintBottom_toTopOf="@+id/chat_received_image_message_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,6 +116,7 @@
         android:layout_width="@dimen/chat_image_width"
         android:layout_height="@dimen/chat_image_height"
         android:layout_margin="@dimen/app_margin"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -127,7 +128,6 @@
             app:layout_constraintBottom_toTopOf="@+id/chat_user_image_message_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/default_photo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

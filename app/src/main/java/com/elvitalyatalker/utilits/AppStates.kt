@@ -1,5 +1,7 @@
 package com.elvitalyatalker.utilits
 
+import com.elvitalyatalker.dataBase.*
+
 enum class AppStates(val state: String) {
     ONLINE("В сети"),
     OFFLINE("Был недавно"),

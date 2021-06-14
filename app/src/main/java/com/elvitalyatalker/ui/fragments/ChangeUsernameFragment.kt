@@ -1,6 +1,7 @@
 package com.elvitalyatalker.ui.fragments
 
 import com.elvitalyatalker.R
+import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_username.*
 
