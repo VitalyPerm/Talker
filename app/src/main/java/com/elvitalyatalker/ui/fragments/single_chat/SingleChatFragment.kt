@@ -16,6 +16,7 @@ import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.models.UserModel
 import com.elvitalyatalker.ui.fragments.BaseFragment
+import com.elvitalyatalker.ui.fragments.message_recycler_view.views.AppViewFactory
 import com.elvitalyatalker.utilits.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -89,7 +90,12 @@ class SingleChatFragment(private val contact: CommonModel) :
                         chat_input_message.setText("")
                         chat_btn_voice.colorFilter = null
                         mAppVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorage(Uri.fromFile(file), messageKey,contact.id, TYPE_MESSAGE_VOICE)
+                            uploadFileToStorage(
+                                Uri.fromFile(file),
+                                messageKey,
+                                contact.id,
+                                TYPE_MESSAGE_VOICE
+                            )
                             mSmoothScrollToPosition = true
                         }
                     }
@@ -119,11 +125,11 @@ class SingleChatFragment(private val contact: CommonModel) :
         mMessagesListener = AppChildEventListener {
             val message = it.getCommonModel()
             if (mSmoothScrollToPosition) {
-                mAdapter.addItemToBottom(message) {
+                mAdapter.addItemToBottom(AppViewFactory.getView(message)) {
                     mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
             } else {
-                mAdapter.addItemToTop(message) {
+                mAdapter.addItemToTop(AppViewFactory.getView(message)) {
                     mSwipeRefreshLayout.isRefreshing = false
                 }
             }
@@ -199,8 +205,8 @@ class SingleChatFragment(private val contact: CommonModel) :
             val messageKey = getMessageKey(contact.id)
             uploadFileToStorage(uri, messageKey, contact.id, TYPE_MESSAGE_IMAGE)
             mSmoothScrollToPosition = true
-            }
         }
+    }
 
 
     override fun onPause() {
