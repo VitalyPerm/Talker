@@ -1,4 +1,4 @@
-package com.elvitalyatalker.ui.fragments
+package com.elvitalyatalker.ui.screens
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.elvitalyatalker.ui.fragments
+package com.elvitalyatalker.ui.screens
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.models.CommonModel
-import com.elvitalyatalker.ui.fragments.single_chat.SingleChatFragment
+import com.elvitalyatalker.ui.screens.single_chat.SingleChatFragment
 import com.elvitalyatalker.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions

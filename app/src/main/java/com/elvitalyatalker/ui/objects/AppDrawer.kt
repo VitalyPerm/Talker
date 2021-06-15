@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import com.elvitalyatalker.R
-import com.elvitalyatalker.ui.fragments.ContactsFragment
-import com.elvitalyatalker.ui.fragments.SettingsFragment
+import com.elvitalyatalker.ui.screens.ContactsFragment
+import com.elvitalyatalker.ui.screens.SettingsFragment
 import com.elvitalyatalker.utilits.APP_ACTIVITY
 import com.elvitalyatalker.dataBase.USER
 import com.elvitalyatalker.utilits.downloadAndSetImage

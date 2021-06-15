@@ -1,11 +1,9 @@
-package com.elvitalyatalker.ui.fragments
+package com.elvitalyatalker.ui.screens
 
-import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.R
-import com.elvitalyatalker.utilits.APP_ACTIVITY
 import com.elvitalyatalker.utilits.hideKeyboard
 
 

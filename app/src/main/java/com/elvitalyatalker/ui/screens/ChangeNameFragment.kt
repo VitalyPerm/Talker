@@ -1,4 +1,4 @@
-package com.elvitalyatalker.ui.fragments
+package com.elvitalyatalker.ui.screens
 
 import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.USER

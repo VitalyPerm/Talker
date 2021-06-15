@@ -1,4 +1,4 @@
-package com.elvitalyatalker.ui.fragments.single_chat
+package com.elvitalyatalker.ui.screens.single_chat
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -15,8 +15,8 @@ import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.*
 import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.models.UserModel
-import com.elvitalyatalker.ui.fragments.BaseFragment
-import com.elvitalyatalker.ui.fragments.message_recycler_view.views.AppViewFactory
+import com.elvitalyatalker.ui.screens.BaseFragment
+import com.elvitalyatalker.ui.message_recycler_view.views.AppViewFactory
 import com.elvitalyatalker.utilits.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -219,5 +219,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     override fun onDestroy() {
         super.onDestroy()
         mAppVoiceRecorder.releaseRecorder()
+
+        mAdapter.destroy()
     }
 }

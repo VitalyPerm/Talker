@@ -9,8 +9,8 @@ import com.elvitalyatalker.dataBase.AUTH
 import com.elvitalyatalker.dataBase.initFirebase
 import com.elvitalyatalker.dataBase.initUser
 import com.elvitalyatalker.databinding.ActivityMainBinding
-import com.elvitalyatalker.ui.fragments.MainFragment
-import com.elvitalyatalker.ui.fragments.register.EnterPhoneNumberFragment
+import com.elvitalyatalker.ui.screens.MainFragment
+import com.elvitalyatalker.ui.screens.register.EnterPhoneNumberFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
 import com.elvitalyatalker.utilits.*
 import kotlinx.coroutines.CoroutineScope

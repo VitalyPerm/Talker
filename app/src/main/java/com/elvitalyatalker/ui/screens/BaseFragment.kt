@@ -1,7 +1,6 @@
-package com.elvitalyatalker.ui.fragments
+package com.elvitalyatalker.ui.screens
 
 import androidx.fragment.app.Fragment
-import com.elvitalyatalker.MainActivity
 import com.elvitalyatalker.utilits.APP_ACTIVITY
 
 
