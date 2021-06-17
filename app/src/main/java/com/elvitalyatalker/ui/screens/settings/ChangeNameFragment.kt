@@ -1,8 +1,9 @@
-package com.elvitalyatalker.ui.screens
+package com.elvitalyatalker.ui.screens.settings
 
 import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.USER
 import com.elvitalyatalker.dataBase.setNameToDataBase
+import com.elvitalyatalker.ui.screens.BaseChangeFragment
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 

@@ -1,4 +1,4 @@
-package com.elvitalyatalker.ui.screens
+package com.elvitalyatalker.ui.screens.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.*
+import com.elvitalyatalker.ui.screens.BaseFragment
 import com.elvitalyatalker.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

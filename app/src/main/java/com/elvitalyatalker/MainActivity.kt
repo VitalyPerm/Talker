@@ -9,7 +9,7 @@ import com.elvitalyatalker.dataBase.AUTH
 import com.elvitalyatalker.dataBase.initFirebase
 import com.elvitalyatalker.dataBase.initUser
 import com.elvitalyatalker.databinding.ActivityMainBinding
-import com.elvitalyatalker.ui.screens.MainFragment
+import com.elvitalyatalker.ui.screens.main_list.MainListFragment
 import com.elvitalyatalker.ui.screens.register.EnterPhoneNumberFragment
 import com.elvitalyatalker.ui.objects.AppDrawer
 import com.elvitalyatalker.utilits.*
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()
-            replaceFragment(MainFragment(), false)
+            replaceFragment(MainListFragment(), false)
         } else {
             replaceFragment(EnterPhoneNumberFragment(),false)
         }

@@ -1,7 +1,8 @@
-package com.elvitalyatalker.ui.screens
+package com.elvitalyatalker.ui.screens.settings
 
 import com.elvitalyatalker.R
 import com.elvitalyatalker.dataBase.*
+import com.elvitalyatalker.ui.screens.BaseChangeFragment
 import com.elvitalyatalker.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_username.*
 

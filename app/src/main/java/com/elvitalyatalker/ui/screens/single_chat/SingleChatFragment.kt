@@ -3,8 +3,7 @@ package com.elvitalyatalker.ui.screens.single_chat
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,8 @@ import com.elvitalyatalker.models.CommonModel
 import com.elvitalyatalker.models.UserModel
 import com.elvitalyatalker.ui.message_recycler_view.views.AppViewFactory
 import com.elvitalyatalker.ui.screens.BaseFragment
+import com.elvitalyatalker.ui.screens.main_list.MainListFragment
+import com.elvitalyatalker.ui.screens.settings.ChangeNameFragment
 import com.elvitalyatalker.utilits.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
@@ -57,6 +58,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        setHasOptionsMenu(true)
         mBottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_choice)
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         mAppVoiceRecorder = AppVoiceRecorder()
@@ -252,4 +254,25 @@ class SingleChatFragment(private val contact: CommonModel) :
 
         mAdapter.destroy()
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.single_chat_action_menu, menu)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_clear_chat -> clearChat(contact.id){
+                showToast("Чат очищен")
+                replaceFragment(MainListFragment())
+            }
+            R.id.menu_delete_chat -> deleteChat(contact.id){
+                showToast("Чат удалён")
+                replaceFragment(MainListFragment())
+            }
+        }
+        return true
+    }
+
+
+
 }
